@@ -1,4 +1,4 @@
-import { spawn, exec } from "node:child_process";
+import { exec } from "node:child_process";
 
 export const dependencyInstaller = (library: string, isDevDep: boolean = false) => {
 
@@ -17,7 +17,7 @@ export const dependencyInstaller = (library: string, isDevDep: boolean = false) 
             console.log('Error:', stderr);
         } 
         resolve(stdout);
-        console.log('stdout', stdout);
+        // console.log('stdout', stdout);
         
     });
  });
