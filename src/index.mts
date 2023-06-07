@@ -1,30 +1,32 @@
 import chalkAnimation from 'chalk-animation';
 
-import { dependencyInstaller } from "./depInstaller.mjs";
 import { parseArgs } from './helper/args-helper.js';
+import { dependencyInstaller } from "./helper/depInstaller.mjs";
+import { getProjectName } from './prompts/menu-prompts.js';
 
 
-export const add = (a: number, b: number) => {
+// export const add = (a: number, b: number) => {
 
-    const result = a + b;
-    return result;
-};
-
-
-const answer = add(5, 10);
-console.log('Answer 1: ', answer);
-
-const devLibraries = ['typescript', 'jest', 'ts-jest', 'nodemon', 'ts-node', '@types/jest', '@types/node'];
-
-const libraries = ['@sylvesterllc/aws-constructs'];
-
-libraries.forEach(async (libary) => {
-    const rainbow = chalkAnimation.rainbow('Installing NPM dev dependency...');
-
-    await dependencyInstaller(libary, true);
-
-    rainbow.stop();
-});
+//     const result = a + b;
+//     return result;
+// };
 
 
-console.log('flags:', parseArgs(process.argv, ['--new', '--type', '--help'], true));
+// const answer = add(5, 10);
+// console.log('Answer 1: ', answer);
+
+
+
+
+const result = await getProjectName();
+
+
+
+
+// libraries.forEach(async (libary) => {
+//     const rainbow = chalkAnimation.rainbow('Installing NPM dev dependency...');
+
+//     await dependencyInstaller(libary, true);
+
+//     rainbow.stop();
+// });

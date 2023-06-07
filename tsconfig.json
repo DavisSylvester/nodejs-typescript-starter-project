@@ -6,7 +6,7 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "strict": true,    
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "alwaysStrict": true,
     "moduleResolution": "nodenext",
@@ -20,7 +20,6 @@
     "outDir": "app",
     "rootDir": "src"
   },
-  "include": ["src/**/*.ts", "src/depInstaller.mts", "src/index.mts"],
-  "exclude": ["node_modules", "__tests__", "__test__", "app", "jest.config.ts"],
-  
+  "include": ["src/**/*.ts", "src/helper/depInstaller.mts", "src/index.mts"],
+  "exclude": ["node_modules", "__tests__", "__test__", "app", "jest.config.ts"]
 }
