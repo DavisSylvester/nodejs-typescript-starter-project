@@ -20,6 +20,6 @@
     "outDir": "app",
     "rootDir": "src"
   },
-  "include": ["src/**/*.ts", "src/helper/depInstaller.mts", "src/index.mts"],
+  "include": ["src/**/*.ts", "src/helper/depInstaller.mts", "src/index.ts"],
   "exclude": ["node_modules", "__tests__", "__test__", "app", "jest.config.ts"]
 }
