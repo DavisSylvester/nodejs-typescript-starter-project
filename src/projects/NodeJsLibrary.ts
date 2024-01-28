@@ -1,6 +1,7 @@
 import { BaseProject } from "./base-project.js";
 
-export class NodeJsLibrary extends BaseProject {
+export class NodeJsLibrary extends BaseProject<NodeJsLibrary> {
+
 
 	constructor() {
 		super();
@@ -9,6 +10,16 @@ export class NodeJsLibrary extends BaseProject {
 	public async createProject() {
 
 		await this.init();
+		return this;
 	}
 
+	public addTestingFramework(): this {
+
+		if (!this.requireJestTesting) {
+			return this;
+		}
+
+		return this;
+	}
 }
+

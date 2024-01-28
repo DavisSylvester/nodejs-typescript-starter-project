@@ -1,7 +1,7 @@
 import { getProjectName, includeJestTesting, selectProjectType } from "../prompts/menu-prompts.js";
 import { PROJECT_TYPES, ProjectType } from "../types/ProjectTypes.js";
 
-export abstract class BaseProject {
+export abstract class BaseProject<T> {
 
 	#projectName: string;
 	#requireJestTesting: boolean;
@@ -52,6 +52,7 @@ export abstract class BaseProject {
 		}
 	}
 
-	protected abstract createProject(): Promise<void>;
+	protected abstract createProject(): Promise<T>;
+	protected abstract addTestingFramework(): T;
 }
 

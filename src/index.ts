@@ -18,10 +18,10 @@ import { NodeJsLibrary } from './projects/NodeJsLibrary.js';
 
 
 
-
+//
 // const result = await getProjectName();
-
-const ran = await new NodeJsLibrary().createProject();
+const n = new NodeJsLibrary();
+const ran = (await new NodeJsLibrary().createProject()).addTestingFramework();
 
 
 

@@ -1,10 +1,22 @@
 import { checkbox, input, rawlist, select } from '@inquirer/prompts';
 import { PROJECT_TYPES } from '../types/ProjectTypes.js';
+import { parseArgs } from '../helper/args-helper.js';
+
 
 export const getProjectName = async () => {
 
-	const answer = await input({ message: 'Enter your name' });
-	return answer
+	const cliValues = parseArgs(process.argv, ['--new'], true);
+
+	let result = '';
+
+	if ((cliValues as Map<string, string>).has('--new')) {
+		result = (cliValues as Map<string, string>).get('--new') as string;
+	}
+
+	if (!result) {
+		result = await input({ message: 'Project Name' });
+	}
+	return result;
 };
 
 export const includeJestTesting = async () => {
