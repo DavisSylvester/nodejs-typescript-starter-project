@@ -1,14 +1,3 @@
-
-// import type {Config} from '@jest/types';
-// // Sync object
-// const config: Config.InitialOptions = {
-//   verbose: true,
-//   transform: {
-//     '^.+\\.ts?$': 'ts-jest',
-//   },
-// };
-// export default config;
-
 import type { JestConfigWithTsJest } from 'ts-jest'
 
 const jestConfig: JestConfigWithTsJest = {

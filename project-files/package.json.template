@@ -1,0 +1,19 @@
+{
+	"name": "{{PROJECT_NAME}}",
+	"version": "0.0.1",
+	"description": "",
+	"main": "app/index.js",
+	"scripts": {
+	  {{SCRIPTS}}
+	},
+	"keywords": [],
+	"author": "",
+	"type": "module",
+	"license": "ISC",
+	"devDependencies": {
+	  {{DEV_DEPENDENCIES}}
+	},
+	"dependencies": {
+	  {{DEPENDENCIES}}
+	}
+  }
