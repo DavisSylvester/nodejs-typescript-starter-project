@@ -1,1 +1,1 @@
-export const dependencyInstaller = async (library, dev = false) => {};
+export const dependencyInstaller = async (library: any, dev = false) => {};

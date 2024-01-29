@@ -3,6 +3,7 @@ import chalkAnimation from 'chalk-animation';
 import { parseArgs } from './helper/args-helper.js';
 import { dependencyInstaller } from "./helper/depInstaller.mjs";
 import { getProjectName } from './prompts/menu-prompts.js';
+import { NodeJsLibrary } from './projects/NodeJsLibrary.js';
 
 
 // export const add = (a: number, b: number) => {
@@ -17,8 +18,10 @@ import { getProjectName } from './prompts/menu-prompts.js';
 
 
 
-
-const result = await getProjectName();
+//
+// const result = await getProjectName();
+const n = new NodeJsLibrary();
+const ran = (await new NodeJsLibrary().createProject()).addTestingFramework();
 
 
 

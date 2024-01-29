@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"declaration": true,
+		"declarationMap": true,
+		"strict": false,
+		"baseUrl": ".",
+		"alwaysStrict": true,
+		"strictPropertyInitialization": false,
+		"resolveJsonModule": true,
+		"types": ["node", "jest"],
+		"lib": ["esnext", "es2020"],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"outDir": "app",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"sourceMap": true,
+		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"target": "ESNext"
+	},
+	"include": ["src/**/*", "__tests__/*"]
+}
