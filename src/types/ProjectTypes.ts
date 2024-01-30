@@ -10,4 +10,14 @@ export const PROJECT_TYPES: ProjectTypeValue = {
 
 type ProjectTypeValue = {
 	[key in ProjectName]: ProjectType;
- }
+}
+
+export enum NPM_REGISTRY_HOST {
+	GITHUB = 'github',
+	NPMJS = 'npmjs',
+}
+
+export enum NPM_REGISTRY_TYPE {
+	PUBLIC = 'public',
+	PRIVATE = 'private',
+}

@@ -1,5 +1,5 @@
 import { checkbox, input, rawlist, select } from '@inquirer/prompts';
-import { PROJECT_TYPES } from '../types/ProjectTypes.js';
+import { NPM_REGISTRY_HOST, NPM_REGISTRY_TYPE, PROJECT_TYPES } from '../types/ProjectTypes.js';
 import { parseArgs } from '../helper/args-helper.js';
 
 
@@ -28,7 +28,7 @@ export const includeJestTesting = async () => {
 			{ name: 'No', value: 'false' },
 		]
 	});
-	return answer;
+	return convertToBoolean(answer);
 };
 
 export const selectProjectType = async () => {
@@ -64,7 +64,7 @@ export const selectProjectType = async () => {
 	return result;
 };
 
-export const libraryPublishLocation = async () => {
+export const libraryPublishLocationMenu = async () => {
 
 	const answer = await select({
 		message: 'NPM Library Publish',
@@ -81,19 +81,19 @@ export const libraryPublishLocation = async () => {
 			},
 		]
 	});
-	return answer
+	return (answer === NPM_REGISTRY_HOST.GITHUB) ? NPM_REGISTRY_HOST.GITHUB : NPM_REGISTRY_HOST.NPMJS;
 };
 
-export const publishLibraryToRegistry = async () => {
+export const publishLibraryToRegistryMenu = async () => {
 
-	const answer = await checkbox({
+	const answer = await rawlist({
 		message: 'NPM Library Publish',
 		choices: [
 			{ name: 'Yes', value: 'true' },
 			{ name: 'No', value: 'false' },
 		]
 	});
-	return answer
+	return convertToBoolean(answer);
 };
 
 
@@ -113,5 +113,9 @@ const convertToProjectType = (answer: string) => {
 		default:
 			return PROJECT_TYPES.LIBRARY;
 	}
+}
+
+const convertToBoolean = (answer: string) => {
+	return answer === 'true' ? true : false;
 }
 

@@ -1,5 +1,5 @@
-import { getProjectName, includeJestTesting, selectProjectType } from "../prompts/menu-prompts.js";
-import { PROJECT_TYPES, ProjectType } from "../types/ProjectTypes.js";
+import { getProjectName, includeJestTesting, libraryPublishLocationMenu, publishLibraryToRegistryMenu, selectProjectType } from "../prompts/menu-prompts.js";
+import { NPM_REGISTRY_HOST, NPM_REGISTRY_TYPE, PROJECT_TYPES, ProjectType } from "../types/ProjectTypes.js";
 
 export abstract class BaseProject<T> {
 
@@ -38,18 +38,34 @@ export abstract class BaseProject<T> {
 
 	protected async showMenus() {
 		const projectName = await getProjectName();
-		const addTesting = await includeJestTesting();
+		this.requireJestTesting = await includeJestTesting();
 		const projectType = await selectProjectType();
 
 		this.projectName = projectName;
-		this.requireJestTesting = (addTesting === 'true') ? true : false;
 		this.projectType = projectType;
 
 		return {
 			projectName,
-			includeJestTesting: (addTesting === 'true') ? true : false,
+			includeJestTesting: this.requireJestTesting,
 			projectType,
 		}
+	}
+
+	protected async libraryMenu() {
+
+		// Library Menu:  Public or Private
+
+		const publishToRegistry = await publishLibraryToRegistryMenu();
+
+		if (publishToRegistry) {
+			// Show Registry Location Menu
+			const npmRegistryType = await libraryPublishLocationMenu();
+
+			if (npmRegistryType === NPM_REGISTRY_HOST.GITHUB) {
+				// Show Public Registry Menu
+			}
+		}
+
 	}
 
 	protected abstract createProject(): Promise<T>;
