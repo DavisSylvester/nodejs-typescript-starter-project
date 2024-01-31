@@ -6,6 +6,9 @@
 	"scripts": {
 		"test": "jest"
 	},
+	"bin": {
+		"bishop": "./bin/bishop"
+	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/DavisSylvester/nodejs-typescript-starter-project.git"
@@ -22,6 +25,9 @@
 	],
 	"author": "Davis Sylvester <davis@sylvesterllc.com>",
 	"type": "module",
+	"bugs": {
+		"url": "https://github.com/DavisSylvester/nodejs-typescript-starter-project/issues"
+	},
 	"license": "ISC",
 	"devDependencies": {
 		"@types/chalk-animation": "^1.6.1",
