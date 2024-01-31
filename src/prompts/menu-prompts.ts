@@ -64,7 +64,7 @@ export const selectProjectType = async () => {
 	return result;
 };
 
-export const libraryPublishLocationMenu = async () => {
+export const libraryPublishRegistryMenu = async () => {
 
 	const answer = await select({
 		message: 'NPM Library Publish',
@@ -96,6 +96,18 @@ export const publishLibraryToRegistryMenu = async () => {
 	return convertToBoolean(answer);
 };
 
+export const publishLibraryToPackageSecurity = async () => {
+
+	const answer = await rawlist({
+		message: 'NPM Library Security',
+		choices: [
+			{ name: 'Public', value: 'public' },
+			{ name: 'Private', value: 'private' },
+		]
+	});
+	return convertToRegistryType(answer);
+};
+
 
 const convertToProjectType = (answer: string) => {
 	switch (answer) {
@@ -112,6 +124,19 @@ const convertToProjectType = (answer: string) => {
 			return PROJECT_TYPES.CDK;
 		default:
 			return PROJECT_TYPES.LIBRARY;
+	}
+}
+
+const convertToRegistryType = (answer: string) => {
+	switch (answer) {
+		case NPM_REGISTRY_TYPE.PRIVATE:
+			return NPM_REGISTRY_TYPE.PRIVATE;
+
+		case NPM_REGISTRY_TYPE.PUBLIC:
+			return NPM_REGISTRY_TYPE.PUBLIC;
+
+		default:
+			return NPM_REGISTRY_TYPE.PUBLIC;
 	}
 }
 
