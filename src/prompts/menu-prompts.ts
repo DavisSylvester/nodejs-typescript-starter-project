@@ -67,7 +67,7 @@ export const selectProjectType = async () => {
 export const libraryPublishRegistryMenu = async () => {
 
 	const answer = await select({
-		message: 'NPM Library Publish',
+		message: 'Which NPM Registry do you want to publish to?',
 		choices: [
 			{
 				name: 'Github Registry',
@@ -87,7 +87,7 @@ export const libraryPublishRegistryMenu = async () => {
 export const publishLibraryToRegistryMenu = async () => {
 
 	const answer = await rawlist({
-		message: 'NPM Library Publish',
+		message: 'Will you publish to an NPM Registry?',
 		choices: [
 			{ name: 'Yes', value: 'true' },
 			{ name: 'No', value: 'false' },
@@ -99,7 +99,7 @@ export const publishLibraryToRegistryMenu = async () => {
 export const publishLibraryToPackageSecurity = async () => {
 
 	const answer = await rawlist({
-		message: 'NPM Library Security',
+		message: 'Is your NPM Package Public or Private?',
 		choices: [
 			{ name: 'Public', value: 'public' },
 			{ name: 'Private', value: 'private' },
