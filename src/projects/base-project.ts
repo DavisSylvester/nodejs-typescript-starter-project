@@ -23,8 +23,8 @@ export abstract class BaseProject<T> {
 
 	protected async showMenus() {
 		const projectName = await getProjectName();
-		const includeTesting = await includeJestTesting();
 		const projectType = await selectProjectType();
+		const includeTesting = await includeJestTesting();
 
 		this.showMenuByProjectType(projectType);
 
