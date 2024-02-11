@@ -22,7 +22,7 @@ export const getProjectName = async () => {
 export const includeJestTesting = async () => {
 
 	const answer = await rawlist({
-		message: 'Add Jest Testing',
+		message: 'Include Testing Framework',
 		choices: [
 			{ name: 'Yes', value: 'true' },
 			{ name: 'No', value: 'false' },

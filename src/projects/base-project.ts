@@ -18,15 +18,15 @@ export abstract class BaseProject<T> {
 
 		this.menuProps = { ...menuValues };
 
-		this.generateProjectConfig(menuValues);
+		await this.showMenuByProjectType(this.menuProps.projectType);
+
+		this.generateProjectConfig(this.menuProps);
 	}
 
 	protected async showMenus() {
 		const projectName = await getProjectName();
 		const projectType = await selectProjectType();
 		const includeTesting = await includeJestTesting();
-
-		this.showMenuByProjectType(projectType);
 
 		return {
 			projectName,
@@ -59,10 +59,13 @@ export abstract class BaseProject<T> {
 	protected generateProjectConfig(props: MenuProps) {
 
 		this.config = new StarterConfigProps({
-			projectName: props.projectName,
+			projectName: props.projectName.toLowerCase(),
 			projectType: props.projectType,
 			requireTesting: props.includeTesting,
 		});
+
+		console.log(this.config);
+
 	}
 
 	protected async showMenuByProjectType(projectType: ProjectType) {

@@ -4,8 +4,6 @@ import { NPM_REGISTRY_HOST, NPM_REGISTRY_TYPE } from "../types/ProjectTypes.js";
 
 export class StarterConfigProps {
 
-	constructor(config: IStarterConfigProps) {
-
-
+	constructor(private config: IStarterConfigProps) {
 	}
 }
