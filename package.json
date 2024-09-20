@@ -7,7 +7,7 @@
 		"test": "jest"
 	},
 	"bin": {
-		"bishop": "./bin/bishop"
+		"bishop": "./app/index.js"
 	},
 	"repository": {
 		"type": "git",
