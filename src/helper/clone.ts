@@ -6,7 +6,7 @@ export const cloneGitRepo = async (url: string) => {
 
 	await new Promise((resolve, reject) => {
 
-		const child = spawn('git', ['clone', url], { stdio: 'inherit' });
+		const child = spawn('git', ['clone', url], { stdio: 'overlapped' });
 
 		child.on('exit', (code) => {
 			if (code === 0) {
