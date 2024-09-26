@@ -23,8 +23,8 @@ try {
 	// await cloneGitRepo(templateRepo);
 
 	const project = await new ProjecSetup().init();
+	console.log(project?.MenuProps);
 
-	
 
 } catch (err) {
 	process.exit(1);

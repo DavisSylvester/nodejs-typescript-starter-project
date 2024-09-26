@@ -16,7 +16,7 @@ export const getProjectName = async () => {
 	if (!result) {
 		result = await input({ message: 'Project Name' });
 	}
-	
+
 	return result;
 };
 
@@ -59,7 +59,7 @@ export const selectProjectType = async (language: ProgrammingLanguageType) => {
 
 	const csharpProjectTypes = [
 		{
-			name: "Gateway - Auth0 - Lambda - Lambda",
+			name: "IDB Gateway - Auth0 - CircleCi - Lambda",
 			value: C_SHARP_PROJECT_TYPES['IDB Gateway - Auth0 - CircleCi - Lambda'],
 			description: 'Gateway - Auth0 - Lambda - Lambda',
 		},

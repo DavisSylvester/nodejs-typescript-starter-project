@@ -1,7 +1,7 @@
-import * as _ from "lodash";
 import { StarterConfigProps } from "../classes/StarterConfigProps.js";
 import { MenuProps } from "../interfaces/menuProps.js";
 import { getProjectName, selectProgrammingLanguage, selectProjectType } from "../prompts/menu-prompts.js";
+import { toCamelCase, toSnakeCase } from "../helper/utils.js";
 
 export class ProjecSetup {
 
@@ -22,14 +22,16 @@ export class ProjecSetup {
 
 			const menuValues = await this.showMenus();
 
+
 			this.#menuProps = { ...menuValues };
 
-			this.#menuProps.projectNameSnake = _.snakeCase(this.#menuProps.projectName);
-			this.#menuProps.projectNameCamel = _.camelCase(this.#menuProps.projectName);
+			this.#menuProps.projectNameSnake = toSnakeCase(this.#menuProps.projectName);
+			this.#menuProps.projectNameCamel = toCamelCase(this.#menuProps.projectName);
 
 			return this;
 		} catch (error) {
-			console.error(error);
+			console.log('Project Name is required!')
+			// console.error(error);
 			}
 		}
 
