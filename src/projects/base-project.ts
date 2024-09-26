@@ -2,7 +2,7 @@ import { StarterConfigProps } from "../classes/StarterConfigProps.js";
 import { CONSTANTS } from "../config/constants.js";
 import { MenuProps } from "../interfaces/menuProps.js";
 import { getProjectName, includeJestTesting, libraryPublishRegistryMenu, publishLibraryToPackageSecurity, publishLibraryToRegistryMenu, selectProgrammingLanguage, selectProjectType } from "../prompts/menu-prompts.js";
-import { NPM_REGISTRY_HOST, NPM_REGISTRY_TYPE, ProgrammingLanguageName, ProgrammingLanguageType, PROJECT_TYPES, ProjectType } from "../types/ProjectTypes.js";
+import { NPM_REGISTRY_HOST, NPM_REGISTRY_TYPE, ProgrammingLanguageType, PROJECT_TYPES, ProjectType } from "../types/ProjectTypes.js";
 
 export abstract class BaseProject<T> {
 
@@ -18,7 +18,7 @@ export abstract class BaseProject<T> {
 
 		this.menuProps = { ...menuValues };
 
-		
+
 		this.createProject(this.menuProps.programmingLanguage);
 
 		await this.showMenuByProjectType(this.menuProps.projectType);
