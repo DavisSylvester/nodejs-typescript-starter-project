@@ -1,8 +1,8 @@
 import { StarterConfigProps } from "../classes/StarterConfigProps.js";
 import { CONSTANTS } from "../config/constants.js";
 import { MenuProps } from "../interfaces/menuProps.js";
-import { getProjectName, includeJestTesting, libraryPublishRegistryMenu, publishLibraryToPackageSecurity, publishLibraryToRegistryMenu, selectProjectType } from "../prompts/menu-prompts.js";
-import { NPM_REGISTRY_HOST, NPM_REGISTRY_TYPE, PROJECT_TYPES, ProjectType } from "../types/ProjectTypes.js";
+import { getProjectName, includeJestTesting, libraryPublishRegistryMenu, publishLibraryToPackageSecurity, publishLibraryToRegistryMenu, selectProgrammingLanguage, selectProjectType } from "../prompts/menu-prompts.js";
+import { NPM_REGISTRY_HOST, NPM_REGISTRY_TYPE, ProgrammingLanguageName, ProgrammingLanguageType, PROJECT_TYPES, ProjectType } from "../types/ProjectTypes.js";
 
 export abstract class BaseProject<T> {
 
@@ -18,6 +18,9 @@ export abstract class BaseProject<T> {
 
 		this.menuProps = { ...menuValues };
 
+		
+		this.createProject(this.menuProps.programmingLanguage);
+
 		await this.showMenuByProjectType(this.menuProps.projectType);
 
 		this.generateProjectConfig(this.menuProps);
@@ -25,13 +28,19 @@ export abstract class BaseProject<T> {
 
 	protected async showMenus() {
 		const projectName = await getProjectName();
-		const projectType = await selectProjectType();
-		const includeTesting = await includeJestTesting();
+		const programmingLanguage = await selectProgrammingLanguage();
+		const projectType = await selectProjectType(programmingLanguage);
+
+		let includeTesting = false;
+		if (programmingLanguage === 'nodejs-typescript') {
+			includeTesting = await includeJestTesting();
+		}
 
 		return {
 			projectName,
 			includeTesting,
 			projectType,
+			programmingLanguage,
 		} as MenuProps;
 	}
 
@@ -131,7 +140,7 @@ export abstract class BaseProject<T> {
 	}
 
 
-	protected abstract createProject(): Promise<T>;
+	protected abstract createProject(language: ProgrammingLanguageType): Promise<T>;
 	protected abstract addTestingFramework(): T;
 }
 
