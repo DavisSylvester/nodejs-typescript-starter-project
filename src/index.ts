@@ -1,9 +1,11 @@
+#!/usr/bin/env node
 import chalkAnimation from 'chalk-animation';
-
 import { parseArgs } from './helper/args-helper.js';
 import { dependencyInstaller } from "./helper/depInstaller.mjs";
 import { getProjectName } from './prompts/menu-prompts.js';
 import { NodeJsLibrary } from './projects/NodeJsLibrary.js';
+import { cloneGitRepo } from './helper/clone.js';
+import { ProjecSetup } from './projects/ProjectSetup.js';
 
 
 // export const add = (a: number, b: number) => {
@@ -16,12 +18,23 @@ import { NodeJsLibrary } from './projects/NodeJsLibrary.js';
 // const answer = add(5, 10);
 // console.log('Answer 1: ', answer);
 
+try {
+	// const templateRepo = "https://github.com/DavisSylvester/project-template-repo.git"
+	// await cloneGitRepo(templateRepo);
+
+	const project = await new ProjecSetup().init();
+	console.log(project?.MenuProps);
+
+
+} catch (err) {
+	process.exit(1);
+}
 
 
 //
 // const result = await getProjectName();
-const n = new NodeJsLibrary();
-const ran = (await new NodeJsLibrary().createProject()).addTestingFramework();
+// const n = new NodeJsLibrary();
+// const ran = (await new NodeJsLibrary().createProject()).addTestingFramework();
 
 
 

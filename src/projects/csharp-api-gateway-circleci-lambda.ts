@@ -1,6 +1,6 @@
 import { BaseProject } from "./base-project.js";
 
-export class NodeJsLibrary extends BaseProject<NodeJsLibrary> {
+export class CsharpApiGatewayCircleciLambda extends BaseProject<CsharpApiGatewayCircleciLambda> {
 
 	constructor() {
 		super();
@@ -21,4 +21,3 @@ export class NodeJsLibrary extends BaseProject<NodeJsLibrary> {
 		return this;
 	}
 }
-

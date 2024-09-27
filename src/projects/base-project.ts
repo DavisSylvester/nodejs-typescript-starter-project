@@ -1,32 +1,13 @@
-import { getProjectName, includeJestTesting, libraryPublishLocationMenu, publishLibraryToRegistryMenu, selectProjectType } from "../prompts/menu-prompts.js";
-import { NPM_REGISTRY_HOST, NPM_REGISTRY_TYPE, PROJECT_TYPES, ProjectType } from "../types/ProjectTypes.js";
+import { StarterConfigProps } from "../classes/StarterConfigProps.js";
+import { CONSTANTS } from "../config/constants.js";
+import { MenuProps } from "../interfaces/menuProps.js";
+import { getProjectName, includeJestTesting, libraryPublishRegistryMenu, publishLibraryToPackageSecurity, publishLibraryToRegistryMenu, selectProgrammingLanguage, selectProjectType } from "../prompts/menu-prompts.js";
+import { NPM_REGISTRY_HOST, NPM_REGISTRY_TYPE, ProgrammingLanguageType, PROJECT_TYPES, ProjectType } from "../types/ProjectTypes.js";
 
 export abstract class BaseProject<T> {
 
-	#projectName: string;
-	#requireJestTesting: boolean;
-	#projectType: ProjectType;
-
-	protected set projectName(value: string) {
-		this.#projectName = value;
-	}
-	protected get projectName() {
-		return this.#projectName;
-	}
-
-	protected set requireJestTesting(value: boolean) {
-		this.#requireJestTesting = value;
-	}
-	protected get requireJestTesting() {
-		return this.#requireJestTesting;
-	}
-
-	protected set projectType(value: ProjectType) {
-		this.#projectType = value;
-	}
-	public get projectType() {
-		return this.#projectType;
-	}
+	private config: StarterConfigProps;
+	private menuProps: MenuProps = {} as MenuProps;
 
 	constructor() {
 
@@ -34,41 +15,132 @@ export abstract class BaseProject<T> {
 
 	public async init() {
 		const menuValues = await this.showMenus();
+
+		this.menuProps = { ...menuValues };
+
+
+		this.createProject(this.menuProps.programmingLanguage);
+
+		await this.showMenuByProjectType(this.menuProps.projectType);
+
+		this.generateProjectConfig(this.menuProps);
 	}
 
 	protected async showMenus() {
 		const projectName = await getProjectName();
-		this.requireJestTesting = await includeJestTesting();
-		const projectType = await selectProjectType();
+		const programmingLanguage = await selectProgrammingLanguage();
+		const projectType = await selectProjectType(programmingLanguage);
 
-		this.projectName = projectName;
-		this.projectType = projectType;
+		let includeTesting = false;
+		if (programmingLanguage === 'nodejs-typescript') {
+			includeTesting = await includeJestTesting();
+		}
 
 		return {
 			projectName,
-			includeJestTesting: this.requireJestTesting,
+			includeTesting,
 			projectType,
-		}
+			programmingLanguage,
+		} as MenuProps;
 	}
 
 	protected async libraryMenu() {
 
 		// Library Menu:  Public or Private
+		let npmRegistryHost: NPM_REGISTRY_HOST | null = null;
+		let npmRegistryType: NPM_REGISTRY_TYPE | null = null;
 
 		const publishToRegistry = await publishLibraryToRegistryMenu();
 
 		if (publishToRegistry) {
 			// Show Registry Location Menu
-			const npmRegistryType = await libraryPublishLocationMenu();
-
-			if (npmRegistryType === NPM_REGISTRY_HOST.GITHUB) {
-				// Show Public Registry Menu
-			}
+			npmRegistryHost = await libraryPublishRegistryMenu();
+			npmRegistryType = await publishLibraryToPackageSecurity();
 		}
+
+		return {
+			publishToRegistry,
+			npmRegistryHost,
+			npmRegistryType,
+		};
+	}
+
+	protected generateProjectConfig(props: MenuProps) {
+
+		this.config = new StarterConfigProps({
+			projectName: props.projectName.toLowerCase(),
+			projectType: props.projectType,
+			requireTesting: props.includeTesting,
+		});
+
+		console.log(this.config);
 
 	}
 
-	protected abstract createProject(): Promise<T>;
+	protected async showMenuByProjectType(projectType: ProjectType) {
+
+		switch (projectType) {
+
+			case PROJECT_TYPES.LIBRARY:
+				await this.setLibraryMenuValues();
+				break;
+
+		}
+	}
+
+	protected async setLibraryMenuValues() {
+
+		let npmHost: NPM_REGISTRY_HOST;
+
+		const registryMenuValues = await this.libraryMenu();
+
+		if (!registryMenuValues.publishToRegistry) {
+			this.menuProps = {
+				...this.menuProps,
+				registryConfig: null
+			};
+		} else {
+
+			npmHost = this.setRegistryHost(registryMenuValues.npmRegistryHost!);
+
+			this.menuProps = {
+				...this.menuProps,
+				registryConfig: {
+					registryHost: registryMenuValues.npmRegistryHost!,
+					registryType: registryMenuValues.npmRegistryType!,
+					registryUrl:
+						(npmHost === NPM_REGISTRY_HOST.GITHUB)
+							? CONSTANTS.NPM_REGISTY_GITHUB
+							: CONSTANTS.NPM_REGISTY_NPMJS,
+				},
+			};
+		}
+	}
+
+	private setRegistryHost(npmRegistryHost: NPM_REGISTRY_HOST) {
+
+		let npmHost: NPM_REGISTRY_HOST | null = null;
+
+		switch (npmRegistryHost) {
+
+			case NPM_REGISTRY_HOST.GITHUB:
+				npmHost = NPM_REGISTRY_HOST.GITHUB;
+				break;
+
+			case NPM_REGISTRY_HOST.NPMJS:
+				npmHost = NPM_REGISTRY_HOST.NPMJS;
+				break;
+
+			default:
+				npmHost = NPM_REGISTRY_HOST.NPMJS;
+				return npmHost;
+		}
+
+		return npmHost;
+	}
+
+
+	protected abstract createProject(language: ProgrammingLanguageType): Promise<T>;
 	protected abstract addTestingFramework(): T;
 }
 
