@@ -6,6 +6,8 @@ export interface MenuProps {
 	projectName: string;
 	projectNameSnake: string;
 	projectNameCamel: string;
+	projectNameKebab: string;
+	projectNamePascal: string;
 	includeTesting: boolean;
 	projectType: ProjectType;
 	programmingLanguage: ProgrammingLanguageType;

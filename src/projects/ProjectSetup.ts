@@ -1,7 +1,7 @@
 import { StarterConfigProps } from "../classes/StarterConfigProps.js";
 import { MenuProps } from "../interfaces/menuProps.js";
 import { getProjectName, selectProgrammingLanguage, selectProjectType } from "../prompts/menu-prompts.js";
-import { toCamelCase, toSnakeCase } from "../helper/utils.js";
+import { toCamelCase, toKebabCase, toPascalCase, toSnakeCase } from "../helper/utils.js";
 
 export class ProjecSetup {
 
@@ -25,8 +25,11 @@ export class ProjecSetup {
 
 			this.#menuProps = { ...menuValues };
 
+			// console.log(this.#menuProps.projectName.toSnakeCase());
 			this.#menuProps.projectNameSnake = toSnakeCase(this.#menuProps.projectName);
 			this.#menuProps.projectNameCamel = toCamelCase(this.#menuProps.projectName);
+			this.#menuProps.projectNameKebab = toKebabCase(this.#menuProps.projectName);
+			this.#menuProps.projectNamePascal = toPascalCase(this.#menuProps.projectName);
 
 			return this;
 		} catch (error) {
@@ -46,7 +49,6 @@ export class ProjecSetup {
 
 			return {
 				projectName,
-
 				projectType,
 				programmingLanguage,
 			} as MenuProps;
